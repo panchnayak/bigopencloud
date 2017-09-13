@@ -39,10 +39,15 @@ $pip3.6 install awscli --upgrade --user
 4.2 Configure AWS CLI
 
 $aws configure
+
 $ aws configure
+
 AWS Access Key ID [None]: XXXXXAKIAI2TVKXXX
+
 AWS Secret Access Key [None]: KhXXXXXXXXX8Li7FZwP42OviGXXX
+
 Default region name [None]: us-east-2
+
 Default output format [None]: json
 
 5.Setup IAM user
@@ -50,9 +55,13 @@ Default output format [None]: json
 The kops user will require the following IAM permissions to function properly:,One can use AWS console to create these group and policy or using the CLI also we can create.
 
 AmazonEC2FullAccess
+
 AmazonRoute53FullAccess
+
 AmazonS3FullAccess
+
 IAMFullAccess
+
 AmazonVPCFullAccess
 
 5.1 Create IAM group:
