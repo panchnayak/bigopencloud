@@ -89,14 +89,18 @@ $aws iam add-user-to-group --user-name kops --group-name kops
 5.5 Create keys for the user: 
 
 $aws iam create-access-key --user-name kops
+
 {
+
     "AccessKey": {
+    
         "UserName": "kops",
         "AccessKeyId": "XXXXXXXXXXXXXXXX
         "Status": "Active",
         "SecretAccessKey": "XXXXXXXXXXXXvmeKyXXsaOgtesn",
         "CreateDate": "2017-XX-09T03:25:32.426Z"
     }
+    
 }
 
 5.6 Configure AWS CLI: 
