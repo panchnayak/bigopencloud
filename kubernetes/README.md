@@ -60,17 +60,25 @@ $aws iam create-group --group-name kops
 
 5.2 Attach policy:
 $aws iam attach-group-policy --policy-arn arn:aws:iam::aws:policy/AmazonEC2FullAccess --group-name kops
+
 $aws iam attach-group-policy --policy-arn arn:aws:iam::aws:policy/AmazonRoute53FullAccess --group-name kops
+
 $aws iam attach-group-policy --policy-arn arn:aws:iam::aws:policy/AmazonS3FullAccess --group-name kops
+
 $aws iam attach-group-policy --policy-arn arn:aws:iam::aws:policy/IAMFullAccess --group-name kops
+
 $aws iam attach-group-policy --policy-arn arn:aws:iam::aws:policy/AmazonVPCFullAccess --group-name kops
+
 
 5.3 Create IAM user: 
 
 $aws iam create-user --user-name kops
-Add user to group: 
+
+5.4 Add user to group: 
 $aws iam add-user-to-group --user-name kops --group-name kops
-Create keys for the user: 
+
+5.5 Create keys for the user: 
+
 $aws iam create-access-key --user-name kops
 {
     "AccessKey": {
@@ -81,20 +89,21 @@ $aws iam create-access-key --user-name kops
         "CreateDate": "2017-XX-09T03:25:32.426Z"
     }
 }
-5.4 Configure AWS CLI: 
+
+5.6 Configure AWS CLI: 
 $aws configure. Use SecretAccessKey and AccessKeyId
 
-5.5 Create a S3 Bucket.
+5.7 Create a S3 Bucket.
 
 aws s3api create-bucket --bucket panchaleswar-k8s --region us-east-1 
 or
 aws s3api create-bucket --bucket panchaleswar-k8s --region us-east-2 --create-bucket-configuration LocationConstraint=us-east-2
 
-5.6 Enable bucket versioning: 
+5.8 Enable bucket versioning: 
 
 $aws s3api put-bucket-versioning --bucket panchaleswar-k8s --region us-east-1 --versioning-configuration Status=Enabled
 
-5.7 Set S3 bucket: 
+5.9 Set S3 bucket: 
 $export KOPS_STATE_STORE=s3://panchaleswar-k8s
 
 Set cluster name: 
