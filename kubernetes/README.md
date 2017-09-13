@@ -2,10 +2,10 @@
 
 KOPS is an effort to automate the instalation and configuration of Kubernetes Cluster Environment.
 Currentlly it fully supported on AWS.
-I think its is not yet supported on Azure platform,it might be bacuse Azure has its own Resoucre Manager scripts to install and configure Kubernetes on Azure platform.I have tried it on Azure platform and based on my own learning i am giving a step by step procedure to install,configure and use Kubernetes Cluster on AWS cloud environment.
 
+I think it is is not yet supported on Azure platform,it might be bacuse Azure has its own Resoucre Manager scripts to install and configure Kubernetes on Azure platform.I have tried it on Azure platform and based on my own learning i am giving a step by step procedure to install,configure and use Kubernetes Cluster on AWS cloud environment.
 
-This practicall script is Based on the Tutorial on https://github.com/kubernetes/kops/blob/master/docs/aws.md
+This Quickstart script is Based on the Tutorial on https://github.com/kubernetes/kops/blob/master/docs/aws.md
 
 It is better to have a fresh Virtual machine on Virtual Box or VMware Workstation.I am using a minimal CentOS 7 instalation.
 
@@ -55,18 +55,18 @@ AmazonS3FullAccess
 IAMFullAccess
 AmazonVPCFullAccess
 
-5.1
-Create IAM group:
+5.1 Create IAM group:
 $aws iam create-group --group-name kops
-5.2
-Attach policy:
+
+5.2 Attach policy:
 $aws iam attach-group-policy --policy-arn arn:aws:iam::aws:policy/AmazonEC2FullAccess --group-name kops
 $aws iam attach-group-policy --policy-arn arn:aws:iam::aws:policy/AmazonRoute53FullAccess --group-name kops
 $aws iam attach-group-policy --policy-arn arn:aws:iam::aws:policy/AmazonS3FullAccess --group-name kops
 $aws iam attach-group-policy --policy-arn arn:aws:iam::aws:policy/IAMFullAccess --group-name kops
 $aws iam attach-group-policy --policy-arn arn:aws:iam::aws:policy/AmazonVPCFullAccess --group-name kops
-5.3
-Create IAM user: 
+
+5.3 Create IAM user: 
+
 $aws iam create-user --user-name kops
 Add user to group: 
 $aws iam add-user-to-group --user-name kops --group-name kops
@@ -78,22 +78,33 @@ $aws iam create-access-key --user-name kops
         "AccessKeyId": "XXXXXXXXXXXXXXXX
         "Status": "Active",
         "SecretAccessKey": "XXXXXXXXXXXXvmeKyXXsaOgtesn",
-        "CreateDate": "2017-09-09T03:25:32.426Z"
+        "CreateDate": "2017-XX-09T03:25:32.426Z"
     }
 }
-Configure AWS CLI: 
+5.4 Configure AWS CLI: 
 $aws configure. Use SecretAccessKey and AccessKeyId
 
+5.5 Create a S3 Bucket.
 
 aws s3api create-bucket --bucket panchaleswar-k8s --region us-east-1 
 or
 aws s3api create-bucket --bucket panchaleswar-k8s --region us-east-2 --create-bucket-configuration LocationConstraint=us-east-2
 
-Enable bucket versioning: 
+5.6 Enable bucket versioning: 
+
 $aws s3api put-bucket-versioning --bucket panchaleswar-k8s --region us-east-1 --versioning-configuration Status=Enabled
 
-Set S3 bucket: 
+5.7 Set S3 bucket: 
 $export KOPS_STATE_STORE=s3://panchaleswar-k8s
 
 Set cluster name: 
 $export NAME=cluster.k8s.local
+
+6.Now Start Kubernetes cluster on AWS
+
+$kops create cluster ${NAME} --zones us-east-1a --yes
+
+7.To Delete the Cluster
+
+$kops delete cluster --name ${NAME}
+
