@@ -126,6 +126,14 @@ $export NAME=cluster.k8s.local
 
 $kops create cluster ${NAME} --zones us-east-1a --yes
 
+validate cluster: 
+  
+$kops validate cluster
+
+list nodes: 
+ 
+$kubectl get nodes --show-labels
+
 7.To Delete the Cluster
 
 $kops delete cluster --name ${NAME}
